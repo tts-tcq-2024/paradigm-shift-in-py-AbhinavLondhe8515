@@ -22,22 +22,17 @@ def is_charge_rate_ok(charge_rate):
 def battery_is_ok(temperature, soc, charge_rate):
     """Check if the battery is operating within all safe ranges."""
     checks = [
-        (is_temperature_ok, temperature),
-        (is_soc_ok, soc),
-        (is_charge_rate_ok, charge_rate)
+        is_temperature_ok(temperature),
+        is_soc_ok(soc),
+        is_charge_rate_ok(charge_rate)
     ]
     
-    all_ok = True
-    for check, value in checks:
-        if not check(value):
-            all_ok = False
-    
-    if all_ok:
+    if all(checks):
         print("Battery is operating within all safe ranges.")
+        return True
     else:
         print("Battery is NOT operating within all safe ranges!")
-        
-    return all_ok
+        return False
 
 if __name__ == '__main__':
     assert battery_is_ok(25, 70, 0.7) is True
