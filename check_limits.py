@@ -1,29 +1,23 @@
-def is_temperature_ok(temperature):
-    """Check if the temperature is within the safe range (0 to 45 degrees)."""
-    if 0 <= temperature <= 45:
-        print("Temperature is within the safe range.")
+def check_range(value, min_value, max_value, parameter_name):
+    """Check if a value is within a specified range and print the appropriate message."""
+    if min_value <= value <= max_value:
+        print(f"{parameter_name} is within the safe range.")
         return True
     else:
-        print("Temperature is out of the safe range!")
+        print(f"{parameter_name} is out of the safe range!")
         return False
+
+def is_temperature_ok(temperature):
+    """Check if the temperature is within the safe range (0 to 45 degrees)."""
+    return check_range(temperature, 0, 45, "Temperature")
 
 def is_soc_ok(soc):
     """Check if the state of charge (SoC) is within the safe range (20% to 80%)."""
-    if 20 <= soc <= 80:
-        print("State of Charge (SoC) is within the safe range.")
-        return True
-    else:
-        print("State of Charge (SoC) is out of the safe range!")
-        return False
+    return check_range(soc, 20, 80, "State of Charge (SoC)")
 
 def is_charge_rate_ok(charge_rate):
     """Check if the charge rate is within the safe range (<= 0.8C)."""
-    if charge_rate <= 0.8:
-        print("Charge rate is within the safe range.")
-        return True
-    else:
-        print("Charge rate is out of the safe range!")
-        return False
+    return check_range(charge_rate, 0, 0.8, "Charge rate")
 
 def battery_is_ok(temperature, soc, charge_rate):
     """Check if the battery is operating within all safe ranges."""
